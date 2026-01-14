@@ -11,6 +11,7 @@ import model.DrinkStore;
 
 public class StaffSaleController 
 {
+   // variable to store sale made by staff
    private ArrayList<String> staffSale;
    private StaffDashboard staffDashboard;
    private DrinkStore drinkStore;
