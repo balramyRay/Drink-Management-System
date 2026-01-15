@@ -30,11 +30,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         
         initComponents();
         this.setLocationRelativeTo(null);
+        
+       
         ensureButtonsVisible();
         //Show only home panel initially
         showPanel(homeTabPanel);
         //Create store with 5 default drinks
         store = new DrinkStore();
+       
         
         // Create controller to handle operations
         drinkController = new DrinkController(store, this);
@@ -49,6 +52,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         
          
         updateRecentDrinksTable();
+        setTextOnAdminHomePage();
+        
     }
     
     private void showPanel(JPanel panelToShow)
@@ -91,6 +96,25 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
     }
     
+    public void setTextOnAdminHomePage()
+    {
+        ArrayList<Drink> drinks = store.getDrinks();
+        int totalQuantity = 0;
+        int numberOfTypes = 0;
+        double totalInvestment = 0;
+        for (Drink drink : drinks)
+        {
+            // Calculate for each drink
+        totalQuantity += drink.getDrinkQuantity();
+        numberOfTypes += 1;
+        // Investment = quantity * price per unit
+        totalInvestment += (drink.getDrinkQuantity() * drink.getDrinkPrice());
+        }
+        JLabelTotalDrinkQuantity.setText(String.valueOf(totalQuantity));
+        JLabelDrinkType.setText(String.valueOf(numberOfTypes));
+        JLabelTotalInvestment.setText(String.valueOf(totalInvestment));
+    }
+    
     // methods related to Drnks management by Admin
     // Method to load drinks from ArrayList to JTable
     public void loadDrinksToTable() {
@@ -115,6 +139,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             // Add row to table
             model.addRow(row);
         }
+        setTextOnAdminHomePage();
     }
     // getter for textfield of Drink of AdminDashboard.
     
@@ -205,18 +230,18 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabelWelcomeMessage = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         homeTabPanelTable = new javax.swing.JTable();
+        totalDrinkQuantity = new javax.swing.JPanel();
+        JLabelTotalDrinkQuantity = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        numberOfDrinkTypePanel = new javax.swing.JPanel();
+        JLabelDrinkType = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        totalInvestment = new javax.swing.JPanel();
+        JLabelTotalInvestment = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         drinkTabPanel = new javax.swing.JPanel();
         jLabel_introduction = new javax.swing.JLabel();
@@ -426,48 +451,18 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jLabelWelcomeMessage.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabelWelcomeMessage.setText("Welcome Admin!");
-        homeTabPanel.add(jLabelWelcomeMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 6, -1, 36));
+        homeTabPanel.add(jLabelWelcomeMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 10, -1, 36));
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        homeTabPanel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 48, 727, -1));
+        homeTabPanel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 52, 727, -1));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setText("Recently Added Drinks");
-        homeTabPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 190, 40));
-
-        jLabel10.setText("Total Drinks         :");
-        homeTabPanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 101, 101, -1));
-
-        jLabel11.setText("150");
-        homeTabPanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 101, -1, -1));
-
-        jLabel12.setText("Total Staff            :");
-        homeTabPanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 123, 101, -1));
-
-        jLabel14.setText("Today's Sales       :");
-        homeTabPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 120, -1));
-
-        jLabel15.setText("Most Popular       :");
-        homeTabPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 101, -1));
-
-        jLabel16.setText("5");
-        homeTabPanel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 123, -1, -1));
-
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel20.setText("Today's Overview");
-        homeTabPanel.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(293, 53, 140, 40));
-
-        jLabel18.setText("Rs 25000");
-        homeTabPanel.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, -1, -1));
-
-        jLabel19.setText("Coke");
-        homeTabPanel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, 30, 30));
+        homeTabPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 244, 206, 40));
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        homeTabPanel.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 211, 727, -1));
+        homeTabPanel.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 222, 727, -1));
 
         homeTabPanelTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -479,8 +474,106 @@ public class AdminDashboard extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(homeTabPanelTable);
 
-        homeTabPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 301, 480, 190));
-        homeTabPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, -4, 850, 570));
+        homeTabPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 296, 480, 190));
+
+        totalDrinkQuantity.setBackground(new java.awt.Color(255, 153, 255));
+        totalDrinkQuantity.setBorder(javax.swing.BorderFactory.createMatteBorder(18, 0, 0, 0, new java.awt.Color(255, 51, 102)));
+
+        JLabelTotalDrinkQuantity.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+
+        javax.swing.GroupLayout totalDrinkQuantityLayout = new javax.swing.GroupLayout(totalDrinkQuantity);
+        totalDrinkQuantity.setLayout(totalDrinkQuantityLayout);
+        totalDrinkQuantityLayout.setHorizontalGroup(
+            totalDrinkQuantityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 160, Short.MAX_VALUE)
+            .addGroup(totalDrinkQuantityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(totalDrinkQuantityLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(JLabelTotalDrinkQuantity)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        totalDrinkQuantityLayout.setVerticalGroup(
+            totalDrinkQuantityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 72, Short.MAX_VALUE)
+            .addGroup(totalDrinkQuantityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(totalDrinkQuantityLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(JLabelTotalDrinkQuantity)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        homeTabPanel.add(totalDrinkQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(103, 94, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("TOTAL DRINK STOCKS");
+        homeTabPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(103, 67, -1, -1));
+
+        numberOfDrinkTypePanel.setBackground(new java.awt.Color(255, 153, 255));
+        numberOfDrinkTypePanel.setBorder(javax.swing.BorderFactory.createMatteBorder(18, 0, 0, 0, new java.awt.Color(255, 51, 102)));
+
+        JLabelDrinkType.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+
+        javax.swing.GroupLayout numberOfDrinkTypePanelLayout = new javax.swing.GroupLayout(numberOfDrinkTypePanel);
+        numberOfDrinkTypePanel.setLayout(numberOfDrinkTypePanelLayout);
+        numberOfDrinkTypePanelLayout.setHorizontalGroup(
+            numberOfDrinkTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 166, Short.MAX_VALUE)
+            .addGroup(numberOfDrinkTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(numberOfDrinkTypePanelLayout.createSequentialGroup()
+                    .addGap(0, 83, Short.MAX_VALUE)
+                    .addComponent(JLabelDrinkType)
+                    .addGap(0, 83, Short.MAX_VALUE)))
+        );
+        numberOfDrinkTypePanelLayout.setVerticalGroup(
+            numberOfDrinkTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 72, Short.MAX_VALUE)
+            .addGroup(numberOfDrinkTypePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(numberOfDrinkTypePanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(JLabelDrinkType)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        homeTabPanel.add(numberOfDrinkTypePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 94, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("DRINK TYPE PRESENT");
+        homeTabPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 67, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("TOTAL INVESTMENT");
+        homeTabPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(538, 67, -1, -1));
+
+        totalInvestment.setBackground(new java.awt.Color(255, 153, 255));
+        totalInvestment.setBorder(javax.swing.BorderFactory.createMatteBorder(18, 0, 0, 0, new java.awt.Color(255, 51, 102)));
+
+        JLabelTotalInvestment.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+
+        javax.swing.GroupLayout totalInvestmentLayout = new javax.swing.GroupLayout(totalInvestment);
+        totalInvestment.setLayout(totalInvestmentLayout);
+        totalInvestmentLayout.setHorizontalGroup(
+            totalInvestmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 153, Short.MAX_VALUE)
+            .addGroup(totalInvestmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, totalInvestmentLayout.createSequentialGroup()
+                    .addContainerGap(43, Short.MAX_VALUE)
+                    .addComponent(JLabelTotalInvestment, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(15, Short.MAX_VALUE)))
+        );
+        totalInvestmentLayout.setVerticalGroup(
+            totalInvestmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 72, Short.MAX_VALUE)
+            .addGroup(totalInvestmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, totalInvestmentLayout.createSequentialGroup()
+                    .addContainerGap(16, Short.MAX_VALUE)
+                    .addComponent(JLabelTotalInvestment, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(36, Short.MAX_VALUE)))
+        );
+
+        homeTabPanel.add(totalInvestment, new org.netbeans.lib.awtextra.AbsoluteConstraints(538, 94, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/Picture/homeAdminfinal.png"))); // NOI18N
+        homeTabPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, -4, 780, 560));
 
         drinkTabPanel.setBackground(new java.awt.Color(204, 204, 204));
         drinkTabPanel.setPreferredSize(new java.awt.Dimension(684, 555));
@@ -822,7 +915,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(adminDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(drinkTabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 855, Short.MAX_VALUE))
             .addGroup(adminDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(homeTabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 855, Short.MAX_VALUE))
+                .addComponent(homeTabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE))
         );
         adminDisplayPanelLayout.setVerticalGroup(
             adminDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -830,7 +923,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(adminDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(drinkTabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 563, Short.MAX_VALUE))
             .addGroup(adminDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(homeTabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 563, Short.MAX_VALUE))
+                .addComponent(homeTabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1066,6 +1159,9 @@ public class AdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JLabelDrinkType;
+    private javax.swing.JLabel JLabelTotalDrinkQuantity;
+    private javax.swing.JLabel JLabelTotalInvestment;
     private javax.swing.JPanel adminDisplayPanel;
     private javax.swing.JPanel adminHeadingPanel;
     private javax.swing.JButton adminLogoutBtn;
@@ -1089,16 +1185,10 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel homeTabPanel;
     private javax.swing.JTable homeTabPanelTable;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelAddStaff;
     private javax.swing.JLabel jLabelAdmin;
@@ -1126,6 +1216,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel labelName;
     private javax.swing.JLabel labelPassword;
     private javax.swing.JLabel labelUserName;
+    private javax.swing.JPanel numberOfDrinkTypePanel;
     private javax.swing.JPanel panelToaddStaff;
     private javax.swing.JTable staffPanelTable;
     private javax.swing.JPanel staffTab;
@@ -1135,6 +1226,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldDrinkName;
     private javax.swing.JTextField textFieldDrinkPrice;
     private javax.swing.JTextField textFiledDrinkQuantity;
+    private javax.swing.JPanel totalDrinkQuantity;
+    private javax.swing.JPanel totalInvestment;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPassword;

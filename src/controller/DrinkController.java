@@ -125,7 +125,7 @@ public class DrinkController {
         
         // Update recent drinks queue
         updateRecentDrinks();
-        
+        /*
         // Get the table model
         DefaultTableModel model = (DefaultTableModel) admin.getTblDrinks().getModel();
         
@@ -137,7 +137,10 @@ public class DrinkController {
             newDrink.getDrinkQuantity()
         };
         model.addRow(rowData);
-        
+        */
+        //new
+        admin.loadDrinksToTable();
+        admin.updateRecentDrinksTable(); //end new
         // Clear all text fields
         admin.clearDrinkForm();
         
@@ -315,8 +318,7 @@ public class DrinkController {
         
         // Show message with stack info
         JOptionPane.showMessageDialog(admin, 
-            drinkName + " has been deleted.\n" +
-            "Stack Top: " + top);
+            drinkName + " has been deleted.");
     }
     
     // Method to undo delete (restore drink)
@@ -324,8 +326,7 @@ public class DrinkController {
         // Check for stack underflow (from PPT)
         if (isStackEmpty()) {
             JOptionPane.showMessageDialog(admin,
-                    "Stack is empty! Nothing to undo.\n"
-                    + "Stack Top: " + top);
+                    "Stack is empty! Nothing to undo. ");
             return;
         }
 
@@ -333,7 +334,7 @@ public class DrinkController {
         Drink drink = store.getDeletedDrinks().pop();
         String drinkName = drink.getDrinkName();
 
-        // Update stack top pointer (from PPT)
+        // Update stack top pointer 
         top--; // decrement top
 
         // Add drink back to main list
@@ -352,8 +353,7 @@ public class DrinkController {
 
         // Show message with stack info
         JOptionPane.showMessageDialog(admin,
-                drinkName + " has been restored.\n"
-                + "Stack Top: " + top);
+                drinkName + " has been restored.");
     }
     
     //This method sorts drinks by their ID from lowest to highest
@@ -454,7 +454,7 @@ public class DrinkController {
         ArrayList<Drink> drinksList = store.getDrinks();
         int size = drinksList.size();
 
-        // Selection Sort Algorithm (Week 7 PPT)
+       
         for (int i = 0; i < size - 1; i++) {
             int minIndex = i;
 
@@ -503,12 +503,12 @@ public class DrinkController {
         admin.loadDrinksToTable();
     }
 
-    // Check if stack is empty (from PPT: top = -1 means empty)
+    // Check if stack is empty
     private boolean isStackEmpty() {
         return top == -1;
     }
     
-    // Check if stack is full (from PPT: top = stackSize-1 means full)
+    // Check if stack is full 
     private boolean isStackFull() {
         return top >= stackSize - 1;
     }
@@ -547,4 +547,5 @@ public class DrinkController {
         // Update display
         admin.updateRecentDrinksTable();
     }
+    
 }

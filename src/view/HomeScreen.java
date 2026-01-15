@@ -78,7 +78,7 @@ public class HomeScreen extends javax.swing.JFrame {
         jLabel2.setText("WELCOME TO OUR  COLD STORE");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 420, 37));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/Picture/MainHomePage.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/Picture/Admin home tab.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, -4, 1000, 610));
 
         pack();
