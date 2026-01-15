@@ -1017,7 +1017,50 @@ public class AdminDashboard extends javax.swing.JFrame {
                 "Please enter text to search");
             return;
         }
-        
+        try
+        {
+            // Convert search text to integer
+            int searchId = Integer.parseInt(searchText);
+            
+            // CALL BINARY SEARCH METHOD
+            Drink foundDrink = drinkController.binarySearchById(searchId);
+            
+            // Check if drink was found
+            if (foundDrink != null)
+            {
+                // Clear table to show only found drink
+                DefaultTableModel model = (DefaultTableModel) drinkTabPanelTable.getModel();
+                model.setRowCount(0);
+                
+                // Add the found drink to table
+                Object[] row = 
+                {
+                    foundDrink.getDrinkID(),
+                    foundDrink.getDrinkName(),
+                    foundDrink.getDrinkPrice(),
+                    foundDrink.getDrinkQuantity()
+                };
+                model.addRow(row);
+                
+                return;
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(AdminDashboard.this,
+                        "No drink found with ID: " + searchId + "\n"
+                        + "(Binary Search Method was used)");
+
+                // Clear table since nothing was found
+                DefaultTableModel model = (DefaultTableModel) drinkTabPanelTable.getModel();
+                model.setRowCount(0);
+
+                return;
+            }
+        }
+        catch(NumberFormatException e)
+        {
+            //we will use LINEAR SEARCH below
+        }
         // Call linear search method
         ArrayList<Drink> results = drinkController.searchDrinks(searchText);
         

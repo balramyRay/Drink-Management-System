@@ -125,19 +125,7 @@ public class DrinkController {
         
         // Update recent drinks queue
         updateRecentDrinks();
-        /*
-        // Get the table model
-        DefaultTableModel model = (DefaultTableModel) admin.getTblDrinks().getModel();
-        
-        // Add new row to JTable
-        Object[] rowData = {
-            newDrink.getDrinkID(),
-            newDrink.getDrinkName(), 
-            newDrink.getDrinkPrice(),
-            newDrink.getDrinkQuantity()
-        };
-        model.addRow(rowData);
-        */
+       
         //new
         admin.loadDrinksToTable();
         admin.updateRecentDrinksTable(); //end new
@@ -358,7 +346,8 @@ public class DrinkController {
     
     //This method sorts drinks by their ID from lowest to highest
     //SElection sort
-    public void sortDrinksById() {
+    public void sortDrinksById()
+    {
         // Get all drinks from store
         ArrayList<Drink>allDrinks = store.getDrinks();
         //get size and store in variable totalDrinks
@@ -386,8 +375,66 @@ public class DrinkController {
         // Update table display
         admin.loadDrinksToTable();
     }
-    
-    // Search drinks by name, ID, price or quantity
+   
+    // This method searches for a drink by ID using Binary Search
+    public Drink binarySearchById(int searchId)
+    {
+        //Get all drinks from store
+        ArrayList<Drink> allDrinks = store.getDrinks();
+
+        //Make a copy of drinks list
+        ArrayList<Drink> sortedDrinks = new ArrayList<>(allDrinks);
+        int totalDrinks = sortedDrinks.size();
+
+        //Sort the list by ID (Binary Search needs sorted data)
+        // Using Selection Sort (same as your sort method)
+        for (int i = 0; i < totalDrinks - 1; i++) {
+            int smallestIndex = i;
+
+            for (int j = i + 1; j < totalDrinks; j++) {
+                if (sortedDrinks.get(j).getDrinkID() < sortedDrinks.get(smallestIndex).getDrinkID()) {
+                    smallestIndex = j;
+                }
+            }
+
+            // Swap drinks
+            Drink tempDrink = sortedDrinks.get(i);
+            sortedDrinks.set(i, sortedDrinks.get(smallestIndex));
+            sortedDrinks.set(smallestIndex, tempDrink);
+        }
+
+        //START BINARY SEARCH ALGORITHM
+        int left = 0;               // Start index
+        int right = totalDrinks - 1; // End index
+
+        // Keep searching while we have items to check
+        while (left <= right) {
+            // Find middle position
+            int middle = (left + right) / 2;
+
+            // Get drink at middle position
+            Drink middleDrink = sortedDrinks.get(middle);
+            int middleId = middleDrink.getDrinkID();
+
+            // Check if we found the drink
+            if (middleId == searchId) {
+                return middleDrink;  // Found it!
+            }
+
+            // If search ID is bigger than middle ID
+            if (middleId < searchId) {
+                left = middle + 1;  // Search in RIGHT half
+            } // If search ID is smaller than middle ID  
+            else {
+                right = middle - 1; // Search in LEFT half
+            }
+        }
+
+        // If we reach here, drink was not found
+        return null;
+    }
+ 
+    // Search drinks by name,price or quantity
     // Linear chearching
     public ArrayList<Drink> searchDrinks(String searchText) {
         // Create list for search results
@@ -420,7 +467,7 @@ public class DrinkController {
     }
 
     //BUBBLE SORT BY NAME 
-    //  Sort drinks alphabetically by name
+    // Sort drinks alphabetically by name
     public void sortDrinksByName() {
         // Get the drinks list from store
         ArrayList<Drink> drinksList = store.getDrinks();
